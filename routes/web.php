@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\TestPostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,5 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('send-email', [App\Http\Controllers\EmailController::class, 'sendEmail']);
+Route::get('send-email/{to}/{cc}/{link}/{idIns}', [App\Http\Controllers\EmailController::class, 'sendEmail']);
 
+Route::group(['middleware' => ['cors']], function () {
+  Route::post('test-post', [TestPostController::class, 'testPost']);
+});

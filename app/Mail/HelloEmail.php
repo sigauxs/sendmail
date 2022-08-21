@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Email;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -17,9 +18,11 @@ class HelloEmail extends Mailable
      *
      * @return void
      */
-    public function __construct(Strings $to)
+    protected $email;
+
+    public function __construct(Email $email)
     {
-        //
+        $this->email = $email;
     }
 
     /**
@@ -29,6 +32,15 @@ class HelloEmail extends Mailable
      */
     public function build()
     {
-        return $this->from("control-operacional@sigpeco.sigpeconsultores.com.co")->view('email-template');
+        return $this->from("control-operacional@sigpeco.sigpeconsultores.com.co")
+        ->subject('Reporte de inspeccion')
+        ->view('email-template')->with([
+
+            'to' => $this->email->to,
+            'cc' => $this->email->cc,
+            'link'=> $this->email->link,
+            'idIns'=>$this->email->idIns
+
+        ]);;
     }
 }

@@ -5,23 +5,26 @@ namespace App\Http\Controllers;
 use App\Mail\HelloEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-
+use App\Models\Email;
 
 
 class EmailController extends Controller
 {
-    public function sendEmail(){
-        $reveiverEmailAddress = "jasen192021@gmail.com";
+    public function sendEmail(Request $request){
 
-        /**
-         * Import the Mail class at the top of this page,
-         * and call the to() method for passing the
-         * receiver email address.
-         *
-         * Also, call the send() method to incloude the
-         * HelloEmail class that contains the email template.
-         */
-        Mail::to($reveiverEmailAddress)->send(new HelloEmail);
+
+        $email_data = new Email();
+
+        $email_data->idIns = $request->idIns;
+        $email_data->link = $request->link;
+        $email_data->to = $request->to;
+        $email_data->cc = $request->cc;
+
+        $reveiverEmailAddress = $email_data->to;
+
+        Mail::to($reveiverEmailAddress)
+              ->cc($email_data->cc)
+              ->send(new HelloEmail($email_data));
 
 
         /**
@@ -37,7 +40,7 @@ class EmailController extends Controller
              }
 
          } else {
-             echo "No errors, all sent successfully!";
+             echo json_encode("success");
          }
     }
 }
