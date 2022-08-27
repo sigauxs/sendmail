@@ -39,7 +39,11 @@ class HelloEmail extends Mailable
             'to' => $this->email->to,
             'cc' => $this->email->cc,
             'link'=> $this->email->link,
-            'idIns'=>$this->email->idIns
+            'idIns'=>$this->email->idIns,
+            'fecha'=>$this->email->fecha,
+            'area' => $this->email->area,
+            'inspector' => $this->email->inspector,
+            'delegado' => $this->email->delegado
 
         ]);;
     }

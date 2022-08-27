@@ -19,6 +19,10 @@ class EmailController extends Controller
         $email_data->link = $request->link;
         $email_data->to = $request->to;
         $email_data->cc = $request->cc;
+        $email_data->fecha = $request->fecha;
+        $email_data->area = $request->area;
+        $email_data->inspector = $request->inspector;
+        $email_data->delegado = $request->delegado;
 
         $reveiverEmailAddress = $email_data->to;
 
