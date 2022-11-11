@@ -12,3 +12,5 @@
         <p><b>Email:</b> {{$cc}} </p>
     </p>
 </div>
+
+<!-- Este nuevo cambio para coordinar el send mail-->
